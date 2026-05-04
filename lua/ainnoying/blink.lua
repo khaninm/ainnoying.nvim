@@ -74,6 +74,8 @@ function source:get_completions(ctx, callback)
 	return function() end
 end
 
+function source:get_trigger_characters() return { '.', '?', '!' } end
+
 function source:execute(ctx, item, callback, default_implementation)
 	-- invoke AI
 	ainnoying.new_silent_chat(item)
