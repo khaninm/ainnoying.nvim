@@ -47,7 +47,7 @@ M.new_silent_chat = function(completion_item)
 
 	local tools = ""
 	for _, tool in ipairs(completion_item.strategy.codecompanion_tools) do
-		tools = tools .. completion_item.strategy.codecompanion_tool_template:format(tool)
+		tools = tools .. M.codecompanion_tool_template:format(tool)
 	end
 
 	local current_buffer = ""
