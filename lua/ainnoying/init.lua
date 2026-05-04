@@ -52,7 +52,7 @@ M.new_silent_chat = function(completion_item)
 
 	local current_buffer = ""
 	if completion_item.strategy.codecompanion_include_buffer then
-		current_buffer = "#buffer "
+		current_buffer = "#{buffer} "
 	end
 
 	local codecompanion_prefix = current_buffer .. tools
