@@ -8,8 +8,7 @@ M.config = {
 		{
 			blink_label_prefix = "Ask AI: ",
 			blink_label_doc = "Ask AI and come back to the answer whenever you want",
-			parse = function(line) return line:match("^(%s*)%?%s*(.+)") end,
-			predicate = function(line) return line:match("^(%s*)%?%s*(.+)") ~= nil end,
+			parser_expression = "^(%s*)%?%s*(.+)",
 			codecompanion_message_template = "Answer the following question: %s",
 			codecompanion_tools = {},
 			codecompanion_context = {},
@@ -19,8 +18,7 @@ M.config = {
 		{
 			blink_label_prefix = "Ask AI: ",
 			blink_label_doc = "Ask AI about your code",
-			parse = function(line) return line:match("^(%s*)%?%s*(.+)") end,
-			predicate = function(line) return line:match("^(%s*)%?%s*(.+)") ~= nil end,
+			parser_expression = "^(%s*)%?%s*(.+)",
 			codecompanion_message_template = "Answer the following question: %s",
 			codecompanion_tools = {},
 			codecompanion_context = {},
@@ -30,8 +28,7 @@ M.config = {
 		{
 			blink_label_prefix = "Write code:",
 			blink_label_doc = "AI codes for you",
-			parse = function(line) return line:match("^(%s*)%!%s*(.+)") end,
-			predicate = function(line) return line:match("^(%s*)%!%s*(.+)") ~= nil end,
+			parser_expression = "^(%s*)%!%s*(.+)",
 			codecompanion_message_template = "%s",
 			codecompanion_tools = { "insert_edit_into_file" },
 			codecompanion_context = {},

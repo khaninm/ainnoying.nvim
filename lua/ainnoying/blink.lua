@@ -23,7 +23,7 @@ end
 function source:enabled()
 	local line = vim.api.nvim_get_current_line()
 	for _, strategy in ipairs(ainnoying.config.strategies) do
-		if strategy.predicate(line) then
+		if line:match(strategy.parser_expression) then
 			return true
 		end
 	end
@@ -40,8 +40,8 @@ function source:get_completions(ctx, callback)
 	local items = {}
 
 	for _, strategy in ipairs(ainnoying.config.strategies) do
-		if strategy.predicate(ctx.line) then
-			local whitespace, query = strategy.parse(ctx.line)
+		if ctx.line:match(strategy.parser_expression) then
+			local whitespace, query = ctx.line:match(strategy.parser_expression)
 			local completion = whitespace .. commentstring:format(strategy.blink_label_prefix .. query)
 
 			table.insert(items, {
