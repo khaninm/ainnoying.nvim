@@ -45,23 +45,26 @@ M.chats = {}
 M.new_silent_chat = function(completion_item)
 	local codecompanion = require("codecompanion")
 
+	local buffers = ""
+	if completion_item.strategy.codecompanion_include_buffer then
+		buffers = buffers .. ("#{buffer:%s} "):format(vim.api.nvim_buf_get_name(0))
+	end
+
+	for _, file in ipairs(completion_item.strategy.codecompanion_context) do
+		buffers = buffers .. ("#{buffer:%s} "):format(file)
+	end
+
 	local tools = ""
 	for _, tool in ipairs(completion_item.strategy.codecompanion_tools) do
 		tools = tools .. M.config.codecompanion_tool_template:format(tool)
 	end
 
-	local current_buffer = ""
-	if completion_item.strategy.codecompanion_include_buffer then
-		current_buffer = "#{buffer} "
-	end
-
-	local codecompanion_prefix = current_buffer .. tools
+	local codecompanion_prefix = buffers .. tools
 	local codecompanion_query = completion_item.strategy.codecompanion_message_template:format(completion_item.query)
 
 	local hidden_chat = codecompanion.chat({
 		hidden = true,
 		auto_submit = completion_item.strategy.codecompanion_auto_submit,
-		context = completion_item.strategy.codecompanion_context,
 		messages = { { role = "user", content = codecompanion_prefix .. codecompanion_query }, }
 	})
 
